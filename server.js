@@ -9,7 +9,7 @@ require('./connection'); // Import the database connection setup
 const server = http.createServer(app); // Create an HTTP server using the Express app
 const { Server } = require('socket.io'); // Import Socket.io server
 const io = new Server(server, {
-  cors: 'http://www.pure-view.fr', // Configure CORS for socket.io
+  cors: 'http://localhost:3001', // Configure CORS for socket.io
   methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Define supported HTTP methods
 });
 
