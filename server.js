@@ -8,7 +8,7 @@ require('./connection')
 const server = http.createServer(app);
 const {Server} = require('socket.io');
 const io = new Server(server, {
-  cors: 'https://www.pure-view.fr',
+  cors: 'http://localhost:3001',
   methods: ['GET', 'POST', 'PATCH', "DELETE"]
 })
 
@@ -28,21 +28,24 @@ app.use('/orders', orderRoutes);
 app.use('/images', imageRoutes);
 
 
-app.post('/create-payment', async(req, res)=> {
-  const {amount} = req.body;
-  console.log(amount);
+app.post('/create-payment', async (req, res) => {
+  const { amount } = req.body;
+  const amountInCents = amount * 100; // Convert euros to cents
+
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      currency: 'usd',
-      payment_method_types: ['card']
+      amount: amountInCents, // Use the amount in cents
+      currency: 'eur',
+      payment_method_types: ['card'],
     });
-    res.status(200).json(paymentIntent)
+
+    res.status(200).json({ client_secret: paymentIntent.client_secret });
   } catch (e) {
-    console.log(e.message);
-    res.status(400).json(e.message);
-   }
-})
+    console.error(e.message);
+    res.status(400).json({ error: e.message });
+  }
+});
+
 
 
 server.listen(8080, ()=> {
