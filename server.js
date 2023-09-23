@@ -25,7 +25,6 @@ app.use(express.json()); // Parse JSON bodies
 app.use('/users', userRoutes); // Use user routes
 app.use('/products', productRoutes); // Use product routes
 app.use('/orders', orderRoutes); // Use order routes
-app.use('/images', imageRoutes); // Use image routes
 
 // Create a POST route for creating payment intents
 app.post('/create-payment', async (req, res) => {
