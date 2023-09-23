@@ -9,7 +9,7 @@ require('./connection'); // Import the database connection setup
 const server = http.createServer(app); // Create an HTTP server using the Express app
 const { Server } = require('socket.io'); // Import Socket.io server
 const io = new Server(server, {
-  cors: 'http://localhost:3001', // Configure CORS for socket.io
+  cors: 'https://www.pure-view.fr', // Configure CORS for socket.io
   methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Define supported HTTP methods
 });
 
@@ -17,7 +17,6 @@ const User = require('./models/User'); // Import User model
 const userRoutes = require('./routes/userRoutes'); // Import user routes
 const productRoutes = require('./routes/productRoutes'); // Import product routes
 const orderRoutes = require('./routes/orderRoutes'); // Import order routes
-const imageRoutes = require('./routes/imageRoutes'); // Import image routes
 
 // Set up middleware and routes
 app.use(cors()); // Enable CORS for all routes
